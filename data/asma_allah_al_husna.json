@@ -1,0 +1,502 @@
+[
+  {
+    "id": 0,
+    "arabic": "الله",
+    "english": "The One God"
+  },
+  {
+    "id": 1,
+    "arabic": "الرحمن",
+    "english": "The Most Merciful"
+  },
+  {
+    "id": 2,
+    "arabic": "الرحيم",
+    "english": "The Especially Merciful"
+  },
+  {
+    "id": 3,
+    "arabic": "الملك",
+    "english": "The Sovereign Lord"
+  },
+  {
+    "id": 4,
+    "arabic": "القدوس",
+    "english": "The Holy"
+  },
+  {
+    "id": 5,
+    "arabic": "السلام",
+    "english": "The Source of Peace"
+  },
+  {
+    "id": 6,
+    "arabic": "المؤمن",
+    "english": "The Guardian of Faith"
+  },
+  {
+    "id": 7,
+    "arabic": "المهيمن",
+    "english": "The Protector"
+  },
+  {
+    "id": 8,
+    "arabic": "العزيز",
+    "english": "The Mighty"
+  },
+  {
+    "id": 9,
+    "arabic": "الجبار",
+    "english": "The Compeller"
+  },
+  {
+    "id": 10,
+    "arabic": "المتكبر",
+    "english": "The Majestic"
+  },
+  {
+    "id": 11,
+    "arabic": "الخالق",
+    "english": "The Creator"
+  },
+  {
+    "id": 12,
+    "arabic": "البارئ",
+    "english": "The Evolver"
+  },
+  {
+    "id": 13,
+    "arabic": "المصور",
+    "english": "The Fashioner"
+  },
+  {
+    "id": 14,
+    "arabic": "الغفار",
+    "english": "The Forgiver"
+  },
+  {
+    "id": 15,
+    "arabic": "القهار",
+    "english": "The Subduer"
+  },
+  {
+    "id": 16,
+    "arabic": "الوهاب",
+    "english": "The Bestower"
+  },
+  {
+    "id": 17,
+    "arabic": "الرزاق",
+    "english": "The Provider"
+  },
+  {
+    "id": 18,
+    "arabic": "الفتاح",
+    "english": "The Opener"
+  },
+  {
+    "id": 19,
+    "arabic": "العليم",
+    "english": "The All-Knowing"
+  },
+  {
+    "id": 20,
+    "arabic": "القابض",
+    "english": "The Constrictor"
+  },
+  {
+    "id": 21,
+    "arabic": "الباسط",
+    "english": "The Expander"
+  },
+  {
+    "id": 22,
+    "arabic": "الخافض",
+    "english": "The Abaser"
+  },
+  {
+    "id": 23,
+    "arabic": "الرافع",
+    "english": "The Exalter"
+  },
+  {
+    "id": 24,
+    "arabic": "المعز",
+    "english": "The Honorer"
+  },
+  {
+    "id": 25,
+    "arabic": "المذل",
+    "english": "The Dishonorer"
+  },
+  {
+    "id": 26,
+    "arabic": "السميع",
+    "english": "The All-Hearing"
+  },
+  {
+    "id": 27,
+    "arabic": "البصير",
+    "english": "The All-Seeing"
+  },
+  {
+    "id": 28,
+    "arabic": "الحكم",
+    "english": "The Judge"
+  },
+  {
+    "id": 29,
+    "arabic": "العدل",
+    "english": "The Just"
+  },
+  {
+    "id": 30,
+    "arabic": "اللطيف",
+    "english": "The Subtle One"
+  },
+  {
+    "id": 31,
+    "arabic": "الخبير",
+    "english": "The All-Aware"
+  },
+  {
+    "id": 32,
+    "arabic": "الحليم",
+    "english": "The Forbearing"
+  },
+  {
+    "id": 33,
+    "arabic": "العظيم",
+    "english": "The Magnificent"
+  },
+  {
+    "id": 34,
+    "arabic": "الغفور",
+    "english": "The All-Forgiving"
+  },
+  {
+    "id": 35,
+    "arabic": "الشكور",
+    "english": "The Appreciative"
+  },
+  {
+    "id": 36,
+    "arabic": "العلي",
+    "english": "The Most High"
+  },
+  {
+    "id": 37,
+    "arabic": "الكبير",
+    "english": "The Greatest"
+  },
+  {
+    "id": 38,
+    "arabic": "الحفيظ",
+    "english": "The Preserver"
+  },
+  {
+    "id": 39,
+    "arabic": "المقيت",
+    "english": "The Sustainer"
+  },
+  {
+    "id": 40,
+    "arabic": "الحسيب",
+    "english": "The Reckoner"
+  },
+  {
+    "id": 41,
+    "arabic": "الجليل",
+    "english": "The Sublime One"
+  },
+  {
+    "id": 42,
+    "arabic": "الكريم",
+    "english": "The Generous"
+  },
+  {
+    "id": 43,
+    "arabic": "الرقيب",
+    "english": "The Watchful"
+  },
+  {
+    "id": 44,
+    "arabic": "المجيب",
+    "english": "The Responsive"
+  },
+  {
+    "id": 45,
+    "arabic": "الواسع",
+    "english": "The All-Encompassing"
+  },
+  {
+    "id": 46,
+    "arabic": "الحكيم",
+    "english": "The Wise"
+  },
+  {
+    "id": 47,
+    "arabic": "الودود",
+    "english": "The Loving"
+  },
+  {
+    "id": 48,
+    "arabic": "المجيد",
+    "english": "The Most Glorious"
+  },
+  {
+    "id": 49,
+    "arabic": "الباعث",
+    "english": "The Resurrector"
+  },
+  {
+    "id": 50,
+    "arabic": "الشهيد",
+    "english": "The Witness"
+  },
+  {
+    "id": 51,
+    "arabic": "الحق",
+    "english": "The Truth"
+  },
+  {
+    "id": 52,
+    "arabic": "الوكيل",
+    "english": "The Trustee"
+  },
+  {
+    "id": 53,
+    "arabic": "القوي",
+    "english": "The Strong"
+  },
+  {
+    "id": 54,
+    "arabic": "المتين",
+    "english": "The Firm"
+  },
+  {
+    "id": 55,
+    "arabic": "الولي",
+    "english": "The Protecting Friend"
+  },
+  {
+    "id": 56,
+    "arabic": "الحميد",
+    "english": "The Praiseworthy"
+  },
+  {
+    "id": 57,
+    "arabic": "المحصي",
+    "english": "The Counter"
+  },
+  {
+    "id": 58,
+    "arabic": "المبدئ",
+    "english": "The Originator"
+  },
+  {
+    "id": 59,
+    "arabic": "المعيد",
+    "english": "The Restorer"
+  },
+  {
+    "id": 60,
+    "arabic": "المحيي",
+    "english": "The Giver of Life"
+  },
+  {
+    "id": 61,
+    "arabic": "المميت",
+    "english": "The Creator of Death"
+  },
+  {
+    "id": 62,
+    "arabic": "الحي",
+    "english": "The Ever-Living"
+  },
+  {
+    "id": 63,
+    "arabic": "القيوم",
+    "english": "The Self-Subsisting"
+  },
+  {
+    "id": 64,
+    "arabic": "الواجد",
+    "english": "The Finder"
+  },
+  {
+    "id": 65,
+    "arabic": "الماجد",
+    "english": "The Noble"
+  },
+  {
+    "id": 66,
+    "arabic": "الواحد",
+    "english": "The Unique"
+  },
+  {
+    "id": 67,
+    "arabic": "الأحد",
+    "english": "The One"
+  },
+  {
+    "id": 68,
+    "arabic": "الصمد",
+    "english": "The Eternal"
+  },
+  {
+    "id": 69,
+    "arabic": "القادر",
+    "english": "The Able"
+  },
+  {
+    "id": 70,
+    "arabic": "المقتدر",
+    "english": "The Powerful"
+  },
+  {
+    "id": 71,
+    "arabic": "المقدم",
+    "english": "The Expediter"
+  },
+  {
+    "id": 72,
+    "arabic": "المؤخر",
+    "english": "The Delayer"
+  },
+  {
+    "id": 73,
+    "arabic": "الأول",
+    "english": "The First"
+  },
+  {
+    "id": 74,
+    "arabic": "الآخر",
+    "english": "The Last"
+  },
+  {
+    "id": 75,
+    "arabic": "الظاهر",
+    "english": "The Manifest"
+  },
+  {
+    "id": 76,
+    "arabic": "الباطن",
+    "english": "The Hidden"
+  },
+  {
+    "id": 77,
+    "arabic": "الوالي",
+    "english": "The Governor"
+  },
+  {
+    "id": 78,
+    "arabic": "المتعالي",
+    "english": "The Most Exalted"
+  },
+  {
+    "id": 79,
+    "arabic": "البر",
+    "english": "The Source of All Goodness"
+  },
+  {
+    "id": 80,
+    "arabic": "التواب",
+    "english": "The Accepter of Repentance"
+  },
+  {
+    "id": 81,
+    "arabic": "المنتقم",
+    "english": "The Avenger"
+  },
+  {
+    "id": 82,
+    "arabic": "العفو",
+    "english": "The Pardoner"
+  },
+  {
+    "id": 83,
+    "arabic": "الرؤوف",
+    "english": "The Compassionate"
+  },
+  {
+    "id": 84,
+    "arabic": "مالك الملك",
+    "english": "The King of Sovereignty"
+  },
+  {
+    "id": 85,
+    "arabic": "ذو الجلال والإكرام",
+    "english": "The Lord of Majesty and Generosity"
+  },
+  {
+    "id": 86,
+    "arabic": "المقسط",
+    "english": "The Equitable"
+  },
+  {
+    "id": 87,
+    "arabic": "الجامع",
+    "english": "The Gatherer"
+  },
+  {
+    "id": 88,
+    "arabic": "الغني",
+    "english": "The Self-Sufficient"
+  },
+  {
+    "id": 89,
+    "arabic": "المغني",
+    "english": "The Enricher"
+  },
+  {
+    "id": 90,
+    "arabic": "المانع",
+    "english": "The Preventer"
+  },
+  {
+    "id": 91,
+    "arabic": "الضار",
+    "english": "The Distressor"
+  },
+  {
+    "id": 92,
+    "arabic": "النافع",
+    "english": "The Propitious"
+  },
+  {
+    "id": 93,
+    "arabic": "النور",
+    "english": "The Light"
+  },
+  {
+    "id": 94,
+    "arabic": "الهادي",
+    "english": "The Guide"
+  },
+  {
+    "id": 95,
+    "arabic": "البديع",
+    "english": "The Incomparable"
+  },
+  {
+    "id": 96,
+    "arabic": "الباقي",
+    "english": "The Everlasting"
+  },
+  {
+    "id": 97,
+    "arabic": "الوارث",
+    "english": "The Heir"
+  },
+  {
+    "id": 98,
+    "arabic": "الرشيد",
+    "english": "The Guide to the Right Path"
+  },
+  {
+    "id": 99,
+    "arabic": "الصبور",
+    "english": "The Patient"
+  }
+]
