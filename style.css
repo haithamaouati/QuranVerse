@@ -1,0 +1,109 @@
+:root {
+    --bg-main: #000000;
+    --text-main: #ffffff;
+    --border: #222222;
+    --ui-font: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--ui-font);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.top-bar {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.preview-area {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0a0a0a;
+    overflow: hidden;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 25px;
+}
+
+.tab-link {
+    background: none;
+    border: none;
+    color: #555;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.tab-link.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.control-group { margin-bottom: 18px; display: flex; flex-direction: column; gap: 8px; }
+.control-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+label { font-size: 0.7rem; color: #777; text-transform: uppercase; letter-spacing: 0.5px; }
+
+input, select {
+    background: #111;
+    border: 1px solid var(--border);
+    color: #fff;
+    padding: 10px;
+    font-size: 0.95rem;
+    border-radius: 4px;
+}
+
+/* Ensure Arabic text in dropdowns looks correct */
+#surah-select { font-family: 'Amiri', serif; }
+
+.primary-btn {
+    width: 100%;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.primary-btn:active { transform: scale(0.98); }
+
+@media (max-width: 480px) { .control-row { grid-template-columns: 1fr; } }
