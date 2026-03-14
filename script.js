@@ -1,174 +1,183 @@
 /**
- * QuranVerse Application
- * Logical, Methodical Front-End Implementation
+ * QuranVerse Refined Generator
+ * Methodical Logic for UI States and Canvas Rendering
  */
 
-let quranData = null;
-let chaptersData = {};
+let quranData = null, chaptersData = {}, bgImageObj = null;
 const canvas = document.getElementById('verseCanvas');
 const ctx = canvas.getContext('2d');
 
-// --- Initialization & Data Fetching ---
-
 async function init() {
     try {
-        const [quranRes, chaptersRes] = await Promise.all([
-            fetch('./data/quran.json'),
-            fetch('./data/chapters.json')
+        const [qRes, cRes] = await Promise.all([
+            fetch('./data/quran.json'), fetch('./data/chapters.json')
         ]);
-
-        quranData = await quranRes.json();
-        const chaptersList = await chaptersRes.json();
-
-        chaptersList.forEach(ch => { chaptersData[ch.id] = ch; });
-
-        populateSurahDropdown(chaptersList);
-        attachEventListeners();
-        render(); // Initial Render
-    } catch (e) {
-        console.error("Data Load Error:", e);
-    }
+        quranData = await qRes.json();
+        (await cRes.json()).forEach(ch => chaptersData[ch.id] = ch);
+        
+        populateSurahDropdown();
+        setupEvents();
+        
+        // Initial Draw with Default Values
+        render();
+    } catch (e) { console.error("App failed to start:", e); }
 }
 
-function populateSurahDropdown(list) {
+function populateSurahDropdown() {
     const select = document.getElementById('surah-select');
-    list.forEach(ch => {
+    Object.values(chaptersData).forEach(ch => {
         const opt = document.createElement('option');
-        opt.value = ch.id;
-        opt.textContent = ch.name;
+        opt.value = ch.id; opt.textContent = ch.name;
         select.appendChild(opt);
     });
 }
 
-// --- Canvas Rendering Logic ---
-
 function render() {
-    const surahId = document.getElementById('surah-select').value;
+    const sId = document.getElementById('surah-select').value;
     const start = parseInt(document.getElementById('start-verse').value);
     const end = parseInt(document.getElementById('end-verse').value);
+    const bgCol = document.getElementById('bg-color').value;
+    const txCol = document.getElementById('text-color').value;
+    const font = document.getElementById('font-family').value;
     
-    // UI Settings
-    const bg = document.getElementById('bg-color').value;
-    const txtColor = document.getElementById('text-color').value;
-    const fSize = parseInt(document.getElementById('font-size').value);
-    const fFamily = document.getElementById('font-family').value;
-    const cWidth = parseInt(document.getElementById('canvas-width').value) || 1080;
-    const cHeight = parseInt(document.getElementById('canvas-height').value) || 1080;
+    // Typography Defaults & Controls
+    const basSize = parseInt(document.getElementById('basmala-size').value);
+    const verSize = parseInt(document.getElementById('verse-size').value);
+    const refSize = parseInt(document.getElementById('ref-size').value);
+    const basDist = parseInt(document.getElementById('basmala-dist').value);
 
-    // Apply Dimensions
-    canvas.width = cWidth;
-    canvas.height = cHeight;
+    // Feature Toggles
+    const bgEnabled = document.getElementById('bg-image-enable').checked;
+    const wmEnabled = document.getElementById('wm-enable').checked;
 
-    // Background
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, cWidth, cHeight);
+    const cw = canvas.width = 1080;
+    const ch = canvas.height = 1080;
 
-    // Global Text Configuration
-    ctx.fillStyle = txtColor;
+    // 1. Background Logic
+    ctx.fillStyle = bgCol;
+    ctx.fillRect(0, 0, cw, ch);
+
+    if (bgEnabled && bgImageObj) {
+        ctx.save();
+        ctx.globalAlpha = parseInt(document.getElementById('bg-opacity').value) / 100;
+        const scale = Math.max(cw / bgImageObj.width, ch / bgImageObj.height);
+        const x = (cw / 2) - (bgImageObj.width / 2) * scale;
+        const y = (ch / 2) - (bgImageObj.height / 2) * scale;
+        ctx.drawImage(bgImageObj, x, y, bgImageObj.width * scale, bgImageObj.height * scale);
+        ctx.restore();
+    }
+
     ctx.textAlign = 'center';
+    ctx.direction = 'rtl';
+    ctx.fillStyle = txCol;
+
+    // 2. Text Logic
+    let text = "";
+    if (quranData[sId]) {
+        text = quranData[sId].filter(v => v.verse >= start && v.verse <= end).map(v => v.text).join(" ");
+    }
+    const verseTxt = `﴿ ${text} ﴾`;
+    const refTxt = `[${chaptersData[sId]?.name || ''}:${start === end ? start : start + '-' + end}]`;
+
+    ctx.font = `${verSize}px ${font}`;
+    const wrapped = wrapText(ctx, verseTxt, cw * 0.85);
+    const verseH = wrapped.length * (verSize * 1.4);
+    
+    const centerY = ch / 2;
+    const basY = centerY - (verseH / 2) - basDist;
+    const verY = centerY - (verseH / 2);
+    const refY = centerY + (verseH / 2) + (verSize * 0.8);
+
+    // Draw
+    ctx.font = `${basSize}px ${font}`;
     ctx.textBaseline = 'middle';
-    ctx.direction = 'rtl'; // CRITICAL: Fixes bracket reversal and Arabic shaping
+    ctx.fillText("﷽", cw / 2, basY);
 
-    // Line 1: Bismillah
-    ctx.font = `${fSize * 1.4}px ${fFamily}`;
-    ctx.fillText("﷽", cWidth / 2, cHeight * 0.15);
+    ctx.font = `${verSize}px ${font}`;
+    wrapped.forEach((l, i) => ctx.fillText(l, cw / 2, verY + (i * verSize * 1.4) + (verSize / 2)));
 
-    // Line 2: Verse Text Construction
-    let verseContent = "";
-    if (quranData && quranData[surahId]) {
-        const verses = quranData[surahId].filter(v => v.verse >= start && v.verse <= end);
-        verseContent = verses.map(v => v.text).join(" ");
+    ctx.font = `${refSize}px ${font}`;
+    ctx.fillText(refTxt, cw / 2, refY + (refSize / 2));
+
+    // 3. Watermark Logic
+    if (wmEnabled) {
+        ctx.save();
+        ctx.globalAlpha = parseInt(document.getElementById('wm-opacity').value) / 100;
+        ctx.fillStyle = document.getElementById('wm-color').value;
+        ctx.direction = 'ltr';
+        ctx.font = `24px 'Inter', sans-serif`;
+        ctx.fillText(document.getElementById('wm-text').value, cw / 2, ch - 50);
+        ctx.restore();
     }
-    
-    // Exact Formatting as required: ﴿ verse text ﴾
-    const fullVerseString = `﴿ ${verseContent} ﴾`;
-    
-    ctx.font = `${fSize}px ${fFamily}`;
-    const wrapWidth = cWidth * 0.85;
-    const wrappedLines = wrapArabicText(ctx, fullVerseString, wrapWidth);
-    
-    const totalBlockHeight = wrappedLines.length * (fSize * 1.5);
-    let startY = (cHeight / 2) - (totalBlockHeight / 2) + (fSize / 2);
-
-    wrappedLines.forEach(line => {
-        ctx.fillText(line, cWidth / 2, startY);
-        startY += (fSize * 1.5);
-    });
-
-    // Line 3: Reference
-    const surahName = chaptersData[surahId]?.name || "";
-    const refString = start === end ? `[${surahName}:${start}]` : `[${surahName}:${start}-${end}]`;
-    
-    ctx.font = `${fSize * 0.6}px ${fFamily}`;
-    ctx.fillText(refString, cWidth / 2, cHeight * 0.85);
 }
 
-/**
- * Wraps Arabic text for Canvas. 
- * Note: Splits by space, maintaining word integrity.
- */
-function wrapArabicText(context, text, maxWidth) {
-    const words = text.split(' ');
-    const lines = [];
-    let currentLine = words[0];
+function setupEvents() {
+    const ids = [
+        'surah-select', 'start-verse', 'end-verse', 'bg-color', 'text-color', 
+        'basmala-size', 'verse-size', 'ref-size', 'basmala-dist', 'font-family',
+        'bg-image-enable', 'bg-opacity', 'wm-enable', 'wm-text', 'wm-color', 'wm-opacity'
+    ];
 
-    for (let i = 1; i < words.length; i++) {
-        const word = words[i];
-        const width = context.measureText(currentLine + " " + word).width;
-        if (width < maxWidth) {
-            currentLine += " " + word;
-        } else {
-            lines.push(currentLine);
-            currentLine = word;
-        }
-    }
-    lines.push(currentLine);
-    return lines;
-}
-
-// --- Interaction & Download Logic ---
-
-function attachEventListeners() {
-    const ids = ['surah-select', 'start-verse', 'end-verse', 'bg-color', 'text-color', 'font-size', 'font-family', 'canvas-width', 'canvas-height'];
-    
     ids.forEach(id => {
         document.getElementById(id).addEventListener('input', () => {
-            if (id === 'font-size') document.getElementById('font-size-val').textContent = document.getElementById(id).value;
+            const span = document.getElementById(id + '-val');
+            if (span) span.textContent = document.getElementById(id).value;
+            
+            // Handle Feature Group Visibility
+            toggleUIStates();
             render();
         });
     });
 
-    // FIXED: Download mechanism that prevents page reload
-    document.getElementById('download-btn').addEventListener('click', (e) => {
-        e.preventDefault(); // Safety against accidental form triggers
-        
-        try {
-            const dataURL = canvas.toDataURL("image/png");
-            const link = document.createElement('a');
-            
-            link.setAttribute('download', 'quran-verse.png');
-            link.setAttribute('href', dataURL);
-            link.style.display = 'none';
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (err) {
-            console.error("Download failed:", err);
-        }
+    document.getElementById('bg-image-upload').addEventListener('change', (e) => {
+        const r = new FileReader();
+        r.onload = (ev) => {
+            const i = new Image();
+            i.onload = () => { bgImageObj = i; render(); };
+            i.src = ev.target.result;
+        };
+        if(e.target.files[0]) r.readAsDataURL(e.target.files[0]);
     });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.download = 'quran-verse.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+    });
+
+    // Initial Toggle check
+    toggleUIStates();
 }
 
-function openTab(evt, tabName) {
-    const contents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
-    
-    const links = document.getElementsByClassName("tab-link");
-    for (let i = 0; i < links.length; i++) links[i].classList.remove("active");
+function toggleUIStates() {
+    const bgOn = document.getElementById('bg-image-enable').checked;
+    document.getElementById('bg-image-upload').disabled = !bgOn;
+    document.getElementById('bg-opacity').disabled = !bgOn;
+    document.getElementById('bg-image-controls').className = bgOn ? "" : "disabled-group";
 
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
+    const wmOn = document.getElementById('wm-enable').checked;
+    document.getElementById('wm-text').disabled = !wmOn;
+    document.getElementById('wm-color').disabled = !wmOn;
+    document.getElementById('wm-opacity').disabled = !wmOn;
+    document.getElementById('wm-controls').className = wmOn ? "" : "disabled-group";
 }
 
-// Kickstart
+function wrapText(c, t, w) {
+    const words = t.split(' '), lines = [];
+    let cur = words[0];
+    for (let i = 1; i < words.length; i++) {
+        if (c.measureText(cur + " " + words[i]).width < w) cur += " " + words[i];
+        else { lines.push(cur); cur = words[i]; }
+    }
+    lines.push(cur); return lines;
+}
+
+function openTab(evt, name) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+    document.getElementById(name).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
 init();
